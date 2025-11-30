@@ -76,18 +76,17 @@
         
         /* Morris: Deep Library Green Solid */
         .pattern-morris {
-            background-color: #2F3E34; /* Deep Green */
-            color: #E8E6DF; /* Parchment text */
+            background-color: #2F3E34 !important; /* Deep Green */
+            color: #E8E6DF !important; /* Parchment text */
             border-color: #5C6F63 !important;
         }
 
-        /* Velvet: Deep Red with subtle texture */
+        /* Velvet: Deep Red */
         .pattern-velvet {
-            background-color: #3b1e20;
+            background-color: #3b1e20 !important;
             background-image: radial-gradient(circle, #4a2528 10%, transparent 10%), radial-gradient(circle, #4a2528 10%, transparent 10%);
             background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            color: #ebd5d5;
+            color: #ebd5d5 !important;
             border-color: #5e3a3d !important;
         }
 
@@ -101,22 +100,21 @@
             overflow: hidden;
         }
 
-        /* Decorative Borders based on Theme Color (Standard cards only) */
+        /* Standard Borders */
         .card-frame:not(.pattern-morris):not(.pattern-velvet)::before {
             content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
             border: 1px solid var(--accent-color, #8a7e66); opacity: 0.2; pointer-events: none; z-index: 0;
         }
         
-        /* Special borders for pattern themes */
+        /* Morris Double Border */
         .pattern-morris::before {
             content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 1px double #8F9C8F; opacity: 0.4; pointer-events: none; z-index: 0;
+            border: 3px double #8a7e66; opacity: 0.3; pointer-events: none; z-index: 0;
         }
 
-        /* Fixed Header Logic */
+        /* Fixed Header */
         .fixed-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
             background-color: var(--header-bg);
             z-index: 50;
             padding-top: env(safe-area-inset-top);
@@ -127,22 +125,13 @@
             padding-top: calc(var(--header-height) + env(safe-area-inset-top));
         }
         
-        /* Pills */
         .tag-pill {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 10px;
-            border-radius: 99px;
-            background: var(--bg-button);
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            white-space: nowrap;
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em;
+            padding: 4px 10px; border-radius: 99px; background: var(--bg-button);
+            color: var(--text-muted); border: 1px solid var(--border); white-space: nowrap;
         }
         .tag-pill.active {
-            background: var(--accent-color);
-            color: var(--bg-main);
-            border-color: var(--accent-color);
+            background: var(--accent-color); color: var(--bg-main); border-color: var(--accent-color);
         }
     </style>
 </head>
@@ -153,39 +142,36 @@
         const { useState, useEffect } = React;
 
         // --- ICONS ---
-        const Icon = ({ name, size = 20, className, style }) => {
+        const Icon = ({ name, size = 20, className }) => {
             const icons = {
                 ArrowLeft: <path d="m12 19-7-7 7-7 M19 12H5"/>,
                 Plus: <path d="M5 12h14 M12 5v14"/>,
                 Trash: <path d="M3 6h18 M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6 M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>,
                 Sun: <g><circle cx="12" cy="12" r="4"/><path d="M12 2v2 M12 20v2 M4.93 4.93l1.41 1.41 M17.66 17.66l1.41 1.41 M2 12h2 M20 12h2 M6.34 17.66l-1.41-1.41 M19.07 4.93l-1.41 1.41"/></g>,
                 Moon: <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>,
-                Settings: <g><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></g>,
-                Copy: <g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></g>,
-                Search: <g><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></g>,
+                Settings: <g><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g>,                
                 Sort: <path d="M3 6h18M7 12h10M10 18h4"/>,
                 Edit: <g><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></g>,
                 Upload: <g><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></g>,
                 Music: <g><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></g>,
                 Headphones: <g><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></g>,
-                User: <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>,
-                List: <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                User: <g><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></g>,
+                List: <g><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></g>
             };
             return (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                     {icons[name]}
                 </svg>
             );
         };
 
-        // --- CONFIG ---
         const THEMES = [
-            { id: 'gold', color: '#8a7e66', name: 'Gold', type: 'classic' },
-            { id: 'sapphire', color: '#5e7b87', name: 'Sapphire', type: 'classic' },
-            { id: 'sage', color: '#738062', name: 'Sage', type: 'classic' },
-            { id: 'rose', color: '#9c6b6b', name: 'Rose', type: 'classic' },
-            { id: 'morris', color: '#4a5d4a', name: 'Morris', type: 'pattern' },
-            { id: 'velvet', color: '#753a3a', name: 'Velvet', type: 'pattern' }
+            { id: 'gold', color: '#8a7e66', name: 'Gold' },
+            { id: 'sapphire', color: '#5e7b87', name: 'Sapphire' },
+            { id: 'sage', color: '#738062', name: 'Sage' },
+            { id: 'rose', color: '#9c6b6b', name: 'Rose' },
+            { id: 'morris', color: '#4a5d4a', name: 'Morris' },
+            { id: 'velvet', color: '#753a3a', name: 'Velvet' }
         ];
 
         const FONTS = [
@@ -216,7 +202,45 @@
             dateAdded: Date.now()
         };
 
-        // --- APP ---
+        // --- COMPONENTS ---
+        
+        // 1. POEM CARD (Extracted for Safety)
+        const PoemCard = ({ p, onClick, onDelete, getAccent }) => {
+            if (!p) return null; // Safety Check
+            
+            const accent = getAccent(p.theme);
+            const isMorris = p.theme === 'morris';
+            const isVelvet = p.theme === 'velvet';
+            
+            let cardClass = '';
+            if(isMorris) cardClass = 'pattern-morris';
+            if(isVelvet) cardClass = 'pattern-velvet';
+
+            return (
+                <div onClick={() => onClick(p)} className={`card-frame p-6 rounded-lg active:scale-95 cursor-pointer ${cardClass}`} style={{ '--accent-color': accent }}>
+                    <div className="flex justify-between items-start mb-2 relative z-10">
+                        <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: (isMorris || isVelvet) ? 'inherit' : accent }}>
+                            {p.title || 'Untitled'}
+                            {p.type === 'song' && <span className="opacity-50 text-sm"><Icon name="Music" size={14} /></span>}
+                        </h3>
+                        <button onClick={(e) => onDelete(p.id, e)} className="p-2 bg-[var(--bg-card)] rounded-full text-[var(--text-muted)] hover:text-red-400 border border-[var(--border)] shadow-sm z-50 pointer-events-auto">
+                            <Icon name="Trash" size={16} />
+                        </button>
+                    </div>
+                    <div className="text-sm text-[var(--text-muted)] mb-4 flex justify-between relative z-10">
+                        <span>{p.author || 'Unknown'}</span>
+                        {p.publishedDate && <span className="opacity-50 text-xs">{p.publishedDate}</span>}
+                    </div>
+                    {(p.tags || []).length > 0 && (
+                        <div className="flex gap-2 relative z-10">
+                            {(p.tags || []).map(t => <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-[var(--bg-input)] text-[var(--text-muted)] opacity-80">{t}</span>)}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- MAIN APP ---
         const App = () => {
             const [view, setView] = useState('library'); 
             const [isLoaded, setIsLoaded] = useState(false);
@@ -250,20 +274,12 @@
             // Load Data
             useEffect(() => {
                 try {
-                    const savedPoems = JSON.parse(localStorage.getItem('pp_poems_v6'));
-                    const savedConfig = JSON.parse(localStorage.getItem('pp_config_v6'));
+                    // NOTE: Changed storage key to force fresh start if data is corrupt
+                    const savedPoems = JSON.parse(localStorage.getItem('pp_poems_v13'));
+                    const savedConfig = JSON.parse(localStorage.getItem('pp_config_v13'));
                     
                     if (savedPoems && Array.isArray(savedPoems)) {
-                        const repairedPoems = savedPoems.map(p => ({
-                            ...p,
-                            tags: p.tags || [],
-                            type: p.type || 'poem',
-                            performanceLink: p.performanceLink || '',
-                            dateAdded: p.dateAdded || Date.now(),
-                            // Remove street if exists, default to gold or preserve
-                            theme: p.theme === 'street' ? 'gold' : p.theme
-                        }));
-                        setPoems(repairedPoems);
+                        setPoems(savedPoems);
                     } else {
                         setPoems([DEFAULT_POEM]);
                     }
@@ -273,7 +289,6 @@
                         setActiveFont(savedConfig.font || 'cormorant');
                     }
                 } catch (e) {
-                    console.error("Data error, using default", e);
                     setPoems([DEFAULT_POEM]);
                 }
                 setIsLoaded(true);
@@ -282,8 +297,8 @@
             // Save Data
             useEffect(() => {
                 if (!isLoaded) return;
-                localStorage.setItem('pp_poems_v6', JSON.stringify(poems));
-                localStorage.setItem('pp_config_v6', JSON.stringify({ theme: appTheme, font: activeFont }));
+                localStorage.setItem('pp_poems_v13', JSON.stringify(poems));
+                localStorage.setItem('pp_config_v13', JSON.stringify({ theme: appTheme, font: activeFont }));
                 
                 document.body.className = `theme-${appTheme}`;
                 const fontCSS = FONTS.find(f => f.id === activeFont)?.css || FONTS[0].css;
@@ -372,14 +387,7 @@
                     try {
                         const parsed = JSON.parse(data);
                         if (Array.isArray(parsed)) {
-                            const cleaned = parsed.map(p => ({
-                                ...p, 
-                                tags: p.tags || [],
-                                type: p.type || 'poem',
-                                performanceLink: p.performanceLink || '',
-                                dateAdded: p.dateAdded || Date.now()
-                            }));
-                            setPoems(cleaned);
+                            setPoems(parsed);
                             alert("Library restored successfully!");
                         }
                     } catch (e) {
@@ -408,8 +416,6 @@
                     const matchesTag = activeTag === 'All' ? true : (p.tags || []).includes(activeTag);
                     return matchesSearch && matchesTag;
                 });
-                
-                // If grouping by author, we sort differently later, but for filtering we need the list
                 return filtered.sort((a, b) => {
                     if (sortBy === 'added_desc') return parseInt(b.dateAdded || b.id) - parseInt(a.dateAdded || a.id);
                     if (sortBy === 'added_asc') return parseInt(a.dateAdded || a.id) - parseInt(b.dateAdded || b.id);
@@ -421,70 +427,6 @@
 
             const displayedPoems = getProcessedPoems();
 
-            // Grouping Logic
-            const renderLibraryContent = () => {
-                if (libraryMode === 'author') {
-                    // Group by Author
-                    const grouped = displayedPoems.reduce((acc, poem) => {
-                        const auth = poem.author || 'Unknown';
-                        if (!acc[auth]) acc[auth] = [];
-                        acc[auth].push(poem);
-                        return acc;
-                    }, {});
-                    
-                    const authors = Object.keys(grouped).sort();
-                    
-                    if (authors.length === 0) return <div className="text-center py-20 text-[var(--text-muted)] opacity-50 italic">No entries found.</div>;
-
-                    return (
-                        <div className="space-y-8">
-                            {authors.map(auth => (
-                                <div key={auth}>
-                                    <h3 className="text-[var(--text-muted)] text-xs uppercase tracking-widest border-b border-[var(--border)] pb-2 mb-4 sticky top-[120px] bg-[var(--bg-main)] z-30">{auth}</h3>
-                                    <div className="space-y-4">
-                                        {grouped[auth].map(p => renderCard(p))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    );
-                } else {
-                    // Standard List
-                    if (displayedPoems.length === 0) return <div className="text-center py-20 text-[var(--text-muted)] opacity-50 italic">No entries found.</div>;
-                    return <div className="space-y-4">{displayedPoems.map(p => renderCard(p))}</div>;
-                }
-            };
-
-            const renderCard = (p) => {
-                const accent = getAccent(p.theme);
-                const isMorris = p.theme === 'morris';
-                const isVelvet = p.theme === 'velvet';
-                let cardClass = '';
-                if(isMorris) cardClass = 'pattern-morris';
-                if(isVelvet) cardClass = 'pattern-velvet';
-
-                return (
-                    <div key={p.id} onClick={() => { setActivePoem(p); setView('read'); }} className={`card-frame p-6 rounded-lg active:scale-95 cursor-pointer ${cardClass}`} style={{ '--accent-color': accent }}>
-                        <div className="flex justify-between items-start mb-2 relative z-10">
-                            <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: (isMorris || isVelvet) ? 'inherit' : accent }}>
-                                {p.title}
-                                {p.type === 'song' && <span className="opacity-50 text-sm"><Icon name="Music" size={14} /></span>}
-                            </h3>
-                            <button onClick={(e) => handleDelete(p.id, e)} className="p-2 bg-[var(--bg-card)] rounded-full text-[var(--text-muted)] hover:text-red-400 border border-[var(--border)] shadow-sm z-50 pointer-events-auto"><Icon name="Trash" size={16} /></button>
-                        </div>
-                        <div className="text-sm text-[var(--text-muted)] mb-4 flex justify-between relative z-10">
-                            <span>{p.author}</span>
-                            {p.publishedDate && <span className="opacity-50 text-xs">{p.publishedDate}</span>}
-                        </div>
-                        {(p.tags || []).length > 0 && (
-                            <div className="flex gap-2 relative z-10">
-                                {(p.tags || []).map(t => <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-[var(--bg-input)] text-[var(--text-muted)] opacity-80">{t}</span>)}
-                            </div>
-                        )}
-                    </div>
-                );
-            };
-
             // --- VIEWS ---
 
             // 1. READER
@@ -492,13 +434,13 @@
                 const accent = getAccent(activePoem.theme);
                 const isMorris = activePoem.theme === 'morris';
                 const isVelvet = activePoem.theme === 'velvet';
+                
                 let patternClass = '';
                 if (isMorris) patternClass = 'pattern-morris';
                 if (isVelvet) patternClass = 'pattern-velvet';
 
                 return (
                     <div className="min-h-screen bg-[var(--bg-main)]" style={{ '--accent-color': accent }}>
-                        {/* FIXED HEADER */}
                         <div className="fixed-header flex justify-between items-center px-4 h-[60px]">
                             <button onClick={() => setView('library')} className="text-[var(--text-muted)] flex items-center gap-2">
                                 <Icon name="ArrowLeft" /> Library
@@ -513,7 +455,6 @@
                             </div>
                         </div>
 
-                        {/* CONTENT */}
                         <div className="content-spacer p-6 pb-20 flex justify-center min-h-screen">
                             <div className={`w-full max-w-lg card-frame p-8 md:p-12 rounded-lg relative ${patternClass}`} >
                                 {activePoem.type === 'song' && (
@@ -574,18 +515,8 @@
 
                         <div className="content-spacer p-6 pb-20 space-y-6 max-w-lg mx-auto">
                             <div className="flex bg-[var(--bg-button)] p-1 rounded-lg">
-                                <button 
-                                    onClick={() => setNewType('poem')}
-                                    className={`flex-1 py-2 text-xs uppercase tracking-wider rounded transition-all ${newType === 'poem' ? 'bg-[var(--bg-card)] shadow-sm text-[var(--text-main)]' : 'text-[var(--text-muted)] opacity-60'}`}
-                                >
-                                    Poem
-                                </button>
-                                <button 
-                                    onClick={() => setNewType('song')}
-                                    className={`flex-1 py-2 text-xs uppercase tracking-wider rounded transition-all ${newType === 'song' ? 'bg-[var(--bg-card)] shadow-sm text-[var(--text-main)]' : 'text-[var(--text-muted)] opacity-60'}`}
-                                >
-                                    Song
-                                </button>
+                                <button onClick={() => setNewType('poem')} className={`flex-1 py-2 text-xs uppercase tracking-wider rounded transition-all ${newType === 'poem' ? 'bg-[var(--bg-card)] shadow-sm text-[var(--text-main)]' : 'text-[var(--text-muted)] opacity-60'}`}>Poem</button>
+                                <button onClick={() => setNewType('song')} className={`flex-1 py-2 text-xs uppercase tracking-wider rounded transition-all ${newType === 'song' ? 'bg-[var(--bg-card)] shadow-sm text-[var(--text-main)]' : 'text-[var(--text-muted)] opacity-60'}`}>Song</button>
                             </div>
 
                             <input placeholder="Title" value={newTitle} onChange={e => setNewTitle(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-3 text-2xl font-bold placeholder-opacity-30 placeholder-[var(--text-muted)] outline-none" />
@@ -651,7 +582,7 @@
                         <h1 className="text-xl font-bold tracking-tight">Library</h1>
                         <div className="flex gap-2">
                             <button onClick={() => setView('settings')} className="p-2 bg-[var(--bg-button)] rounded-full text-[var(--text-muted)]"><Icon name="Settings" /></button>
-                            <button onClick={toggleAppTheme} className="p-2 bg-[var(--bg-button)] rounded-full text-[var(--text-muted)]"><Icon name={appTheme === 'dusk' ? 'Moon' : 'Sun'} /></button>
+                            <button onClick={toggleAppTheme} className="p-2 bg-[var(--bg-button)] rounded-full text-[var(--text-muted)]"><Icon name={appTheme === 'dusk' ? 'Sun' : 'Moon'} /></button>
                         </div>
                     </div>
 
@@ -670,11 +601,7 @@
                                 <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="appearance-none bg-[var(--bg-button)] border border-[var(--border)] text-[var(--text-muted)] text-xs uppercase tracking-wide px-3 py-1.5 rounded-full outline-none pr-8">
                                     {SORT_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}
                                 </select>
-                                <button 
-                                    onClick={() => setLibraryMode(prev => prev === 'list' ? 'author' : 'list')}
-                                    className={`bg-[var(--bg-button)] border border-[var(--border)] text-[var(--text-muted)] px-3 py-1.5 rounded-full ${libraryMode === 'author' ? 'bg-[var(--accent)] text-[var(--bg-main)] border-transparent' : ''}`}
-                                    title="Group by Author"
-                                >
+                                <button onClick={() => setLibraryMode(prev => prev === 'list' ? 'author' : 'list')} className={`bg-[var(--bg-button)] border border-[var(--border)] text-[var(--text-muted)] px-3 py-1.5 rounded-full ${libraryMode === 'author' ? 'bg-[var(--accent)] text-[var(--bg-main)] border-transparent' : ''}`} title="Group by Author">
                                     <Icon name={libraryMode === 'author' ? 'User' : 'List'} size={14} />
                                 </button>
                             </div>
@@ -685,7 +612,26 @@
                             </div>
                         </div>
                         
-                        {renderLibraryContent()}
+                        <div className="space-y-4">
+                            {libraryMode === 'author' ? (
+                                // Grouped View
+                                Object.keys(displayedPoems.reduce((acc, p) => ({...acc, [p.author || 'Unknown']: 1}), {})).sort().map(author => (
+                                    <div key={author} className="mb-6">
+                                        <h3 className="text-[var(--text-muted)] text-xs uppercase tracking-widest border-b border-[var(--border)] pb-2 mb-4 sticky top-[130px] bg-[var(--bg-main)] z-30">{author}</h3>
+                                        <div className="space-y-4">
+                                            {displayedPoems.filter(p => (p.author || 'Unknown') === author).map(p => (
+                                                <PoemCard key={p.id} p={p} onClick={() => { setActivePoem(p); setView('read'); }} onDelete={handleDelete} getAccent={getAccent} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                // List View
+                                displayedPoems.length > 0 ? displayedPoems.map(p => (
+                                    <PoemCard key={p.id} p={p} onClick={() => { setActivePoem(p); setView('read'); }} onDelete={handleDelete} getAccent={getAccent} />
+                                )) : <div className="text-center py-20 text-[var(--text-muted)] opacity-50 italic">No entries found.</div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="fixed bottom-8 right-6 z-40">
