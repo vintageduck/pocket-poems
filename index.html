@@ -99,10 +99,25 @@
             /* Border: Matching dusty rose */
             border-color: #dccbcb !important;
         }
+        /* PINGING: Aethereal Blue (Dark Mode Default) */
         .pattern-ponting {
-            background-color: #243c56 !important;
-            color: #afc8d6 !important;
-            border-color: #1a2b3d !important;
+            background-color: #162032 !important; /* Deep Twilight Blue */
+            /* Subtle glowing orbs in the corners */
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(129, 140, 248, 0.15) 0%, transparent 60%) !important;
+            color: #e0f2fe !important; /* Ice White text */
+            border-color: #38bdf8 !important; /* Cyan border */
+        }
+        
+        /* PINGING: Light Mode Override */
+        body.theme-dawn .pattern-ponting {
+            background-color: #f0f9ff !important; /* Pale Sky */
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 10% 90%, rgba(129, 140, 248, 0.4) 0%, transparent 50%) !important;
+            color: #0c4a6e !important; /* Deep Ocean text */
+            border-color: #7dd3fc !important;
         }
 
         /* Card Styles */
@@ -115,7 +130,7 @@
             overflow: hidden;
         }
         
-        .card-frame:not(.pattern-morris):not(.pattern-velvet)::before {
+        .card-frame:not(.pattern-morris):not(.pattern-velvet):not(.pattern-ponting)::before {
             content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
             border: 1px solid var(--accent-color, #8a7e66); opacity: 0.2; pointer-events: none; z-index: 0;
         }
@@ -198,7 +213,7 @@
             { id: 'rose', color: '#9c6b6b', name: 'Rose' },
             { id: 'morris', color: '#4a5d4a', name: 'Morris' },
             { id: 'velvet', color: '#753a3a', name: 'Velvet' },
-            { id: 'ponting', color: '#27405b', name: 'Ponting' }
+            { id: 'ponting', color: '#38bdf8', name: 'Ponting' }
         ];
 
         const FONTS = [
@@ -477,14 +492,14 @@
                         <div className="p-6 pb-20 flex justify-center min-h-screen">
                             <div className={`w-full max-w-lg card-frame p-8 md:p-12 rounded-lg relative ${patternClass}`} >
                                 {activePoem.type === 'song' && <div className="absolute top-4 right-4 text-[var(--text-muted)] opacity-20"><Icon name="Music" size={24} /></div>}
-                                <h1 className="text-3xl md:text-4xl text-center font-bold mb-2 uppercase tracking-wide" style={{ color: isMorris || isVelvet ? 'inherit' : accent }}>{activePoem.title}</h1>
+                                <h1 className="text-3xl md:text-4xl text-center font-bold mb-2 uppercase tracking-wide" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}>{activePoem.title}</h1>
                                 <div className="text-center italic opacity-70 mb-8 pb-4 border-b border-[var(--border)] mx-10">{activePoem.author} {activePoem.publishedDate && <span className="text-xs ml-1 opacity-60">({activePoem.publishedDate})</span>}</div>
                                 <div className="text-lg md:text-xl leading-relaxed whitespace-pre-wrap text-justify pb-8">{activePoem.content}</div>
                                 <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-col items-center gap-4">
-                                    <div className="opacity-40 text-xl" style={{ color: isMorris || isVelvet ? 'inherit' : accent }}>✦ ✦ ✦</div>
+                                    <div className="opacity-40 text-xl" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}>✦ ✦ ✦</div>
                                     <div className="flex flex-col items-center gap-2 w-full">
                                         {activePoem.performanceLink && (
-                                            <a href={activePoem.performanceLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-[var(--border)] hover:bg-[var(--bg-button)] transition-colors" style={{ color: isMorris || isVelvet ? 'inherit' : accent }}><Icon name="Headphones" size={14} /> Performance</a>
+                                            <a href={activePoem.performanceLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-[var(--border)] hover:bg-[var(--bg-button)] transition-colors" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}><Icon name="Headphones" size={14} /> Performance</a>
                                         )}
                                         {activePoem.dateAdded && <div className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] opacity-40 mt-2">Added {formatDate(activePoem.dateAdded)}</div>}
                                     </div>
