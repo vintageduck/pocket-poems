@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Pocket</title>
     
-    <!-- Custom Icon -->
     <link rel="apple-touch-icon" href="icon.png">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     
-    <!-- IMMERSIVE STATUS BAR: Allows the app to draw behind the notch -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +16,6 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -73,12 +70,20 @@
         .fade-in { animation: fadeIn 0.3s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- PATTERNS --- */
+        /* --- SPECIAL PATTERNS --- */
+        
+        /* 1. MORRIS (Foresty/Patterned) */
         .pattern-morris {
             background-color: #2F3E34 !important;
             color: #E8E6DF !important;
             border-color: #5C6F63 !important;
         }
+        .pattern-morris::before {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 3px double #8a7e66; opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+
+        /* 2. VELVET (Rich Red) */
         .pattern-velvet {
             background-color: #3b1e20 !important;
             background-image: radial-gradient(circle, #4a2528 10%, transparent 10%), radial-gradient(circle, #4a2528 10%, transparent 10%);
@@ -86,39 +91,86 @@
             color: #ebd5d5 !important;
             border-color: #5e3a3d !important;
         }
-        /* ... existing .pattern-velvet code is above this ... */
-
-        /* VELVET LIGHT MODE OVERRIDE */
+        .pattern-velvet::before {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 3px double #5e3a3d; opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+        /* Velvet Light Mode Override */
         body.theme-dawn .pattern-velvet {
-            /* Background: A soft, dusty antique pink (Faded Rose) */
             background-color: #f4ecec !important;
-        
-            /* Text: Deep Wine/Merlot color for high contrast reading */
             color: #4a2225 !important;
-        
-            /* Border: Matching dusty rose */
             border-color: #dccbcb !important;
         }
-        /* PINGING: Aethereal Blue (Dark Mode Default) */
+
+        /* 3. PONTING (Ice/Crystalline Blue) */
         .pattern-ponting {
-            background-color: #162032 !important; /* Deep Twilight Blue */
-            /* Subtle glowing orbs in the corners */
+            background-color: #162032 !important; 
             background-image: 
                 radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
                 radial-gradient(circle at 10% 90%, rgba(129, 140, 248, 0.15) 0%, transparent 60%) !important;
-            color: #e0f2fe !important; /* Ice White text */
-            border-color: #38bdf8 !important; /* Cyan border */
+            color: #e0f2fe !important; 
+            border-color: #38bdf8 !important; 
         }
-        
-        /* PINGING: Light Mode Override */
+        .pattern-ponting::before {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 3px double #7dd3fc; opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+        /* Ponting Light Mode */
         body.theme-dawn .pattern-ponting {
-            background-color: #f0f9ff !important; /* Pale Sky */
+            background-color: #f0f9ff !important;
             background-image: 
                 radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.4) 0%, transparent 50%),
                 radial-gradient(circle at 10% 90%, rgba(129, 140, 248, 0.4) 0%, transparent 50%) !important;
-            color: #0c4a6e !important; /* Deep Ocean text */
+            color: #0c4a6e !important;
             border-color: #7dd3fc !important;
         }
+
+        /* 4. GARNET (Ethereal Red/Magma) */
+        .pattern-garnet {
+            background-color: #2a0a0a !important; 
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(248, 113, 113, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(251, 146, 60, 0.15) 0%, transparent 60%) !important;
+            color: #ffe4e6 !important; 
+            border-color: #f87171 !important; 
+        }
+        .pattern-garnet::before {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 3px double #fca5a5; opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+        /* Garnet Light Mode */
+        body.theme-dawn .pattern-garnet {
+            background-color: #fff1f2 !important;
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(248, 113, 113, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 10% 90%, rgba(251, 146, 60, 0.3) 0%, transparent 50%) !important;
+            color: #881337 !important;
+            border-color: #fca5a5 !important;
+        }
+
+        /* 5. EMERALD (Ethereal Green/Crystal) */
+        .pattern-emerald {
+            background-color: #022c22 !important; 
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(52, 211, 153, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.15) 0%, transparent 60%) !important;
+            color: #ecfdf5 !important; 
+            border-color: #34d399 !important; 
+        }
+        .pattern-emerald::before {
+            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 3px double #6ee7b7; opacity: 0.3; pointer-events: none; z-index: 0;
+        }
+        /* Emerald Light Mode */
+        body.theme-dawn .pattern-emerald {
+            background-color: #f0fdf4 !important;
+            background-image: 
+                radial-gradient(circle at 90% 10%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.3) 0%, transparent 50%) !important;
+            color: #064e3b !important;
+            border-color: #6ee7b7 !important;
+        }
+
 
         /* Card Styles */
         .card-frame {
@@ -130,33 +182,18 @@
             overflow: hidden;
         }
         
-        .card-frame:not(.pattern-morris):not(.pattern-velvet):not(.pattern-ponting)::before {
+        /* Apply default border only if NO special pattern class is present */
+        .card-frame:not(.pattern-morris):not(.pattern-velvet):not(.pattern-ponting):not(.pattern-garnet):not(.pattern-emerald)::before {
             content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
             border: 1px solid var(--accent-color, #8a7e66); opacity: 0.2; pointer-events: none; z-index: 0;
         }
-        
-        .pattern-morris::before {
-            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 3px double #8a7e66; opacity: 0.3; pointer-events: none; z-index: 0;
-        }
-        .pattern-velvet::before {
-            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 3px double #5e3a3d; opacity: 0.3; pointer-events: none; z-index: 0;
-        }
-        .pattern-ponting::before {
-            content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 3px double #7dd3fc; opacity: 0.3; pointer-events: none; z-index: 0;
-        }
 
         /* --- THE MAGIC HEADER FIX --- */
-        /* Instead of fixed positioning, we use Sticky. 
-           This keeps it in the flow (preventing overlap) but pins it to top on scroll. */
         .sticky-header {
             position: sticky;
             top: 0;
             z-index: 50;
             background-color: var(--header-bg);
-            /* Add padding equal to the notch height */
             padding-top: max(20px, env(safe-area-inset-top)); 
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border);
@@ -171,13 +208,17 @@
         .tag-pill.active {
             background: var(--accent-color); color: var(--bg-main); border-color: var(--accent-color);
         }
+        
+        /* Formatting Styles */
+        .poem-content strong { font-weight: 700; color: inherit; }
+        .poem-content em { font-style: italic; opacity: 0.8; }
     </style>
 </head>
 <body class="theme-dusk">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useMemo } = React;
 
         // --- ICONS ---
         const Icon = ({ name, size = 20, className }) => {
@@ -213,7 +254,9 @@
             { id: 'rose', color: '#9c6b6b', name: 'Rose' },
             { id: 'morris', color: '#4a5d4a', name: 'Morris' },
             { id: 'velvet', color: '#753a3a', name: 'Velvet' },
-            { id: 'ponting', color: '#38bdf8', name: 'Ponting' }
+            { id: 'ponting', color: '#38bdf8', name: 'Ponting (Blue)' },
+            { id: 'garnet', color: '#f87171', name: 'Garnet (Red)' },
+            { id: 'emerald', color: '#34d399', name: 'Emerald (Green)' }
         ];
 
         const FONTS = [
@@ -236,12 +279,40 @@
             title: 'Desiderata',
             author: 'Max Ehrmann',
             publishedDate: '1927',
-            content: `Go placidly amid the noise and the haste, and remember what peace there may be in silence. As far as possible, without surrender, be on good terms with all persons.\n\nSpeak your truth quietly and clearly; and listen to others, even to the dull and the ignorant; they too have their story.`,
+            content: `Go placidly amid the **noise** and the **haste**, and remember what peace there may be in *silence*. As far as possible, without surrender, be on good terms with all persons.\n\nSpeak your truth quietly and clearly; and listen to others, even to the dull and the ignorant; they too have their story.`,
             tags: ['Inspiration'],
             theme: 'gold',
             type: 'poem',
             performanceLink: '',
             dateAdded: Date.now()
+        };
+
+        // --- FORMATTER HELPER ---
+        const formatContent = (text) => {
+            if (!text) return null;
+            // Split by newlines first to handle paragraphs
+            return text.split('\n').map((line, i) => (
+                <div key={i} className="min-h-[1em]">
+                   {line === '' ? <br/> : parseInline(line)}
+                </div>
+            ));
+        };
+
+        const parseInline = (text) => {
+            // Regex to match **bold** and *italic*
+            // This splits the string into parts. 
+            // Groups: (**...**) or (*...*)
+            const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+            
+            return parts.map((part, index) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                    return <strong key={index}>{part.slice(2, -2)}</strong>;
+                }
+                if (part.startsWith('*') && part.endsWith('*')) {
+                    return <em key={index}>{part.slice(1, -1)}</em>;
+                }
+                return part;
+            });
         };
 
         // --- COMPONENTS ---
@@ -250,19 +321,15 @@
             if (!p) return null; 
             
             const accent = getAccent(p.theme);
-            const isMorris = p.theme === 'morris';
-            const isVelvet = p.theme === 'velvet';
-            const isPonting = p.theme === 'ponting';
+            const isPatterned = ['morris', 'velvet', 'ponting', 'garnet', 'emerald'].includes(p.theme);
             
             let cardClass = '';
-            if(isMorris) cardClass = 'pattern-morris';
-            if(isVelvet) cardClass = 'pattern-velvet';
-            if(isPonting) cardClass = 'pattern-ponting';
+            if(isPatterned) cardClass = `pattern-${p.theme}`;
 
             return (
                 <div onClick={() => onClick(p)} className={`card-frame p-6 rounded-lg active:scale-95 cursor-pointer ${cardClass}`} style={{ '--accent-color': accent }}>
                     <div className="flex justify-between items-start mb-2 relative z-10">
-                        <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: (isMorris || isVelvet || isPonting) ? 'inherit' : accent }}>
+                        <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: isPatterned ? 'inherit' : accent }}>
                             {p.title || 'Untitled'}
                             {p.type === 'song' && <span className="opacity-50 text-sm"><Icon name="Music" size={14} /></span>}
                         </h3>
@@ -296,6 +363,8 @@
             const [libraryMode, setLibraryMode] = useState('list'); 
             const [appTheme, setAppTheme] = useState('dusk'); 
             const [activeFont, setActiveFont] = useState('cormorant');
+            
+            // Edit State
             const [editingId, setEditingId] = useState(null);
             const [newTitle, setNewTitle] = useState('');
             const [newAuthor, setNewAuthor] = useState('');
@@ -305,6 +374,10 @@
             const [newColor, setNewColor] = useState('gold');
             const [newType, setNewType] = useState('poem');
             const [newLink, setNewLink] = useState('');
+
+            // Autocomplete Data
+            const uniqueAuthors = useMemo(() => [...new Set(poems.map(p => p.author).filter(Boolean))].sort(), [poems]);
+            const uniqueTags = useMemo(() => [...new Set(poems.flatMap(p => p.tags || []))].sort(), [poems]);
 
             useEffect(() => {
                 try {
@@ -418,7 +491,7 @@
             };
 
             const getAccent = (id) => THEMES.find(t => t.id === id)?.color || '#8a7e66';
-            const allTags = ['All', ...new Set(poems.flatMap(p => p.tags || []))];
+            const allTags = ['All', ...uniqueTags];
 
             const getProcessedPoems = () => {
                 let filtered = poems.filter(p => {
@@ -472,13 +545,8 @@
 
             if (view === 'read' && activePoem) {
                 const accent = getAccent(activePoem.theme);
-                const isMorris = activePoem.theme === 'morris';
-                const isVelvet = activePoem.theme === 'velvet';
-                const isPonting = activePoem.theme === 'ponting';
-                let patternClass = '';
-                if (isMorris) patternClass = 'pattern-morris';
-                if (isVelvet) patternClass = 'pattern-velvet';
-                if (isPonting) patternClass = 'pattern-ponting';
+                const isPatterned = ['morris', 'velvet', 'ponting', 'garnet', 'emerald'].includes(activePoem.theme);
+                let patternClass = isPatterned ? `pattern-${activePoem.theme}` : '';
 
                 return (
                     <div className="min-h-screen bg-[var(--bg-main)]" style={{ '--accent-color': accent }}>
@@ -492,14 +560,19 @@
                         <div className="p-6 pb-20 flex justify-center min-h-screen">
                             <div className={`w-full max-w-lg card-frame p-8 md:p-12 rounded-lg relative ${patternClass}`} >
                                 {activePoem.type === 'song' && <div className="absolute top-4 right-4 text-[var(--text-muted)] opacity-20"><Icon name="Music" size={24} /></div>}
-                                <h1 className="text-3xl md:text-4xl text-center font-bold mb-2 uppercase tracking-wide" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}>{activePoem.title}</h1>
+                                <h1 className="text-3xl md:text-4xl text-center font-bold mb-2 uppercase tracking-wide" style={{ color: isPatterned ? 'inherit' : accent }}>{activePoem.title}</h1>
                                 <div className="text-center italic opacity-70 mb-8 pb-4 border-b border-[var(--border)] mx-10">{activePoem.author} {activePoem.publishedDate && <span className="text-xs ml-1 opacity-60">({activePoem.publishedDate})</span>}</div>
-                                <div className="text-lg md:text-xl leading-relaxed whitespace-pre-wrap text-justify pb-8">{activePoem.content}</div>
+                                
+                                {/* UPDATED: Uses the formatter function instead of raw text */}
+                                <div className="text-lg md:text-xl leading-relaxed whitespace-pre-wrap text-justify pb-8 poem-content">
+                                    {formatContent(activePoem.content)}
+                                </div>
+                                
                                 <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-col items-center gap-4">
-                                    <div className="opacity-40 text-xl" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}>✦ ✦ ✦</div>
+                                    <div className="opacity-40 text-xl" style={{ color: isPatterned ? 'inherit' : accent }}>✦ ✦ ✦</div>
                                     <div className="flex flex-col items-center gap-2 w-full">
                                         {activePoem.performanceLink && (
-                                            <a href={activePoem.performanceLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-[var(--border)] hover:bg-[var(--bg-button)] transition-colors" style={{ color: isMorris || isVelvet || isPonting ? 'inherit' : accent }}><Icon name="Headphones" size={14} /> Performance</a>
+                                            <a href={activePoem.performanceLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-[var(--border)] hover:bg-[var(--bg-button)] transition-colors" style={{ color: isPatterned ? 'inherit' : accent }}><Icon name="Headphones" size={14} /> Performance</a>
                                         )}
                                         {activePoem.dateAdded && <div className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] opacity-40 mt-2">Added {formatDate(activePoem.dateAdded)}</div>}
                                     </div>
@@ -524,14 +597,29 @@
                                 <button onClick={() => setNewType('song')} className={`flex-1 py-2 text-xs uppercase tracking-wider rounded transition-all ${newType === 'song' ? 'bg-[var(--bg-card)] shadow-sm text-[var(--text-main)]' : 'text-[var(--text-muted)] opacity-60'}`}>Song</button>
                             </div>
                             <input placeholder="Title" value={newTitle} onChange={e => setNewTitle(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-3 text-2xl font-bold placeholder-opacity-30 placeholder-[var(--text-muted)] outline-none" />
-                            <textarea placeholder={newType === 'song' ? "Lyrics..." : "Poem..."} value={newContent} onChange={e => setNewContent(e.target.value)} className="w-full h-64 bg-[var(--bg-input)] rounded p-4 text-lg leading-relaxed outline-none resize-none" />
+                            
+                            {/* NOTE: Added a hint in the placeholder about formatting */}
+                            <textarea placeholder={newType === 'song' ? "Lyrics... (Use **bold** and *italics*)" : "Poem... (Use **bold** and *italics*)"} value={newContent} onChange={e => setNewContent(e.target.value)} className="w-full h-64 bg-[var(--bg-input)] rounded p-4 text-lg leading-relaxed outline-none resize-none" />
+                            
                             <div className="grid grid-cols-2 gap-4">
-                                <input placeholder="Author/Artist" value={newAuthor} onChange={e => setNewAuthor(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-2 text-[var(--text-muted)] outline-none" />
+                                {/* UPDATED: Added list="author-list" for autocomplete */}
+                                <div>
+                                    <input list="author-list" placeholder="Author/Artist" value={newAuthor} onChange={e => setNewAuthor(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-2 text-[var(--text-muted)] outline-none" />
+                                    <datalist id="author-list">
+                                        {uniqueAuthors.map(a => <option key={a} value={a} />)}
+                                    </datalist>
+                                </div>
                                 <input placeholder="Year/Date" value={newDate} onChange={e => setNewDate(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-2 text-[var(--text-muted)] outline-none text-right" />
                             </div>
                             <input placeholder="Performance Link" value={newLink} onChange={e => setNewLink(e.target.value)} className="w-full bg-transparent border-b border-[var(--border)] py-2 text-[var(--text-muted)] outline-none text-sm" />
                             <div className="bg-[var(--bg-card)] p-4 rounded-lg border border-[var(--border)] space-y-4">
-                                <input placeholder="Tags (e.g. Sleep, Nature)" value={newTags} onChange={e => setNewTags(e.target.value)} className="w-full bg-transparent text-sm outline-none" />
+                                {/* UPDATED: Added list="tag-list" */}
+                                <div>
+                                    <input list="tag-list" placeholder="Tags (e.g. Sleep, Nature)" value={newTags} onChange={e => setNewTags(e.target.value)} className="w-full bg-transparent text-sm outline-none" />
+                                    <datalist id="tag-list">
+                                        {uniqueTags.map(t => <option key={t} value={t} />)}
+                                    </datalist>
+                                </div>
                                 <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-2">Theme: {THEMES.find(t => t.id === newColor)?.name}</div>
                                 <div className="flex flex-wrap gap-3">
                                     {THEMES.map(t => (
